@@ -23,7 +23,7 @@ const TestBoard = () => {
         stamina: 120,
         maxEnergy: 100,
         endurance: 150,
-        critChance: 25,
+        critChance: 20,
     };
 
     let playerHP = player.endurance + (player.endurance * player.strength / 100);
