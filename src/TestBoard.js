@@ -28,6 +28,8 @@ const TestBoard = () => {
 
     let playerHP = player.endurance + (player.endurance * player.strength / 100);
     let enemyHP = player.endurance + (player.endurance * player.strength / 100);
+    let playerEnergy = player.maxEnergy;
+    let enemyEnergy = enemy.maxEnergy;
 
     const attacks = [
         {
@@ -68,7 +70,9 @@ const TestBoard = () => {
             let dodge = Math.floor(Math.random() * enemy.agility);
             addMessage(messages => [...messages, `...enemy dodges: ${hit <= dodge}`]);
             if (hit > dodge) {
-                let power = att.power * (player.strength / 100) - (200 - enemy.endurance) / 100;
+                let factor = (player.strength + player.stamina + playerEnergy) / 3;
+                console.log(factor);
+                let power = att.power * (factor / 100) - (200 - enemy.endurance) / 100;
                 let critHit = Math.floor(Math.random() * 100);
                 addMessage(messages => [...messages, ` ... critical? ${critHit <= player.critChance}`]);
                 if (critHit <= player.critChance) {
@@ -77,6 +81,7 @@ const TestBoard = () => {
                 } else {
                     addMessage(messages => [...messages, `Enemy hit!`]);
                 }
+                // stamina & energy factor
                 addMessage(messages => [...messages, ` ...hit power: ${power}`]);
                 
             } else {
